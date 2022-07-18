@@ -1,4 +1,4 @@
-require './person'
+require './person_p'
 
 class Teacher < Person
   def initialize(specialization, age, name = 'Unknown')
