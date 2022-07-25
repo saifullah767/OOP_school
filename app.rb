@@ -32,8 +32,9 @@ class App
     end
   end
 
-  def get_user_person_info
-    @student_or_teacher = input_number('Do you want to create a student (1) or a teacher (2)? [Input a number]: ', (1..2))
+  def user_person_info
+    @student_or_teacher = input_number('Do you want to create a student (1) or a teacher (2)? [Input a number]: ',
+                                       (1..2))
     print 'Name: '
     @name = gets.chomp
     print 'Age : '
@@ -41,7 +42,7 @@ class App
   end
 
   def create_person
-    get_user_person_info
+    user_person_info
     case @student_or_teacher
     when 1
       create_student
@@ -58,24 +59,23 @@ class App
     end
   end
 
-  def get_user_student_info
-    permission_input = input_letters('Has parent permission? [Y/N]: ', %w[Y N])
-    @permission = (@permission == 'Y')
+  def user_student_info
+    @permission_input = input_letters('Has parent permission? [Y/N]: ', %w[Y N])
   end
 
   def create_student
-    get_user_student_info
-    @persons << Student.new('Unkown', @age, @name, @permission)
+    user_student_info
+    @persons << Student.new('Unkown', @age, @name, @permission_input)
     puts "Person created successfully \n\n"
   end
 
-  def get_user_teacher_info
+  def user_teacher_info
     print 'Specialization: '
     @specialization = gets.chomp
   end
 
   def create_teacher
-    get_user_teacher_info
+    user_teacher_info
     @persons << Teacher.new(@specialization, @age, @name)
     puts "Person created successfully\n\n"
   end
@@ -93,7 +93,7 @@ class App
   def create_rental
     puts 'Create rental'
     puts 'Select a book from the following list by number'
-    @books.each_with_index do |book, index| 
+    @books.each_with_index do |book, index|
       puts "#{index}) Title: \"#{book.title}\", Author: #{book.author}"
     end
     book_number = input_number('Write a valid number ', (0...@books.length))
