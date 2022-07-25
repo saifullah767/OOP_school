@@ -24,20 +24,16 @@ class App
     puts ''
   end
 
-  # def input(text, range)
-  #   loop do
-  #     print text
-  #     input = gets.chomp.to_i
-  #     return input if range.include?(input)
-  #   end
-  # end
+  def input_number(text, range)
+    loop do
+      print text
+      input = gets.chomp.to_i
+      return input if range.include?(input)
+    end
+  end
 
   def get_user_person_info
-    puts 'Which type of person you wish to create'
-    puts '1. Student'
-    puts '2. Teacher'
-    print 'Enter selection: '
-    @person_type = gets.chomp.to_i
+    student_or_teacher = input_number('Do you want to create a student (1) or a teacher (2)? [Input a number]: ', (1..2))
     print 'Name: '
     @name = gets.chomp
     print 'Age : '
@@ -46,7 +42,7 @@ class App
 
   def create_person
     get_user_person_info
-    case @person_type
+    case student_or_teacher
     when 1
       create_student
     when 2
@@ -54,10 +50,17 @@ class App
     end
   end
 
+  def input_letters(text, range)
+    loop do
+      print text
+      input = gets.chomp.upcase
+      return input if range.include?(input)
+    end
+  end
+
   def get_user_student_info
-    print 'Has parent permission? [Y/N]: '
-    permission = gets[0]
-    @permission = (@permission == ('Y' || 'y'))
+    permission_input = input_letters('Has parent permission? [Y/N]: ', %w[Y N])
+    @permission = (@permission == 'Y')
   end
 
   def create_student
