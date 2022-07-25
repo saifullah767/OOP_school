@@ -93,13 +93,15 @@ class App
   def create_rental
     puts 'Create rental'
     puts 'Select a book from the following list by number'
-    @books.each_with_index { |book, index| puts "#{index}) Title: \"#{book.title}\", Author: #{book.author}" }
-    book_number = gets.chomp.to_i
+    @books.each_with_index do |book, index| 
+      puts "#{index}) Title: \"#{book.title}\", Author: #{book.author}"
+    end
+    book_number = input_number('Write a valid number ', (0...@books.length))
     puts 'Select a Person from the following list by number'
     @persons.each_with_index do |person, index|
       puts " #{index}) [#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
     end
-    person_number = gets.chomp.to_i
+    person_number = input_number('Write a valid number ', (0...@persons.length))
     print 'Date: '
     date = gets.chomp
     @rentals << Rental.new(date, @books[book_number], @persons[person_number])
