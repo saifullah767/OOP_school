@@ -31,22 +31,30 @@ class App
     print 'Enter selection: '
     person_type = gets.chomp.to_i
     print 'Name: '
-    name = gets.chomp
+    @name = gets.chomp
     print 'Age : '
-    age = gets.chomp.to_i
+    @age = gets.chomp.to_i
     case person_type
     when 1
-      print 'Has parent permission? [Y/N]: '
-      permission = gets[0]
-      permission = (permission == ('Y' || 'y'))
-      @persons << Student.new('Unkown', age, name, permission)
-      puts "Person created successfully \n\n"
+      create_student
     when 2
-      print 'Specialization: '
-      specialization = gets.chomp
-      @persons << Teacher.new(specialization, age, name)
-      puts "Person created successfully\n\n"
+      create_teacher
     end
+  end
+  
+  def create_student
+    print 'Has parent permission? [Y/N]: '
+    permission = gets[0]
+    permission = (permission == ('Y' || 'y'))
+    @persons << Student.new('Unkown', @age, @name, permission)
+    puts "Person created successfully \n\n"
+  end
+
+  def create_teacher
+    print 'Specialization: '
+    specialization = gets.chomp
+    @persons << Teacher.new(specialization, @age, @name)
+    puts "Person created successfully\n\n"
   end
 
   def create_book
