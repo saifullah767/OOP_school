@@ -41,6 +41,12 @@ In the terminal Run: `ruby person.rb`
 - GitHub: [@githubhandle](https://github.com/saifullah767)
 - LinkedIn: [LinkedIn](https://linkedin.com/in/saifkj)
 
+👤 **Emilia Zambrano**
+
+- GitHub: [@emiliazm](https://github.com/emiliazm)
+- Twitter: [@emilia_zm](https://twitter.com/emilia_zm)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/emilia-zambrano-montero-aa30a611b/)
+
 ## 🤝 Contributing
 
 Contributions, issues, and feature requests are welcome!
