@@ -33,7 +33,7 @@ class App
   end
 
   def get_user_person_info
-    student_or_teacher = input_number('Do you want to create a student (1) or a teacher (2)? [Input a number]: ', (1..2))
+    @student_or_teacher = input_number('Do you want to create a student (1) or a teacher (2)? [Input a number]: ', (1..2))
     print 'Name: '
     @name = gets.chomp
     print 'Age : '
@@ -42,7 +42,7 @@ class App
 
   def create_person
     get_user_person_info
-    case student_or_teacher
+    case @student_or_teacher
     when 1
       create_student
     when 2
