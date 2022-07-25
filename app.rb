@@ -24,17 +24,29 @@ class App
     puts ''
   end
 
-  def create_person
+  # def input(text, range)
+  #   loop do
+  #     print text
+  #     input = gets.chomp.to_i
+  #     return input if range.include?(input)
+  #   end
+  # end
+
+  def get_user_person_info
     puts 'Which type of person you wish to create'
     puts '1. Student'
     puts '2. Teacher'
     print 'Enter selection: '
-    person_type = gets.chomp.to_i
+    @person_type = gets.chomp.to_i
     print 'Name: '
     @name = gets.chomp
     print 'Age : '
     @age = gets.chomp.to_i
-    case person_type
+  end
+
+  def create_person
+    get_user_person_info
+    case @person_type
     when 1
       create_student
     when 2
@@ -42,18 +54,26 @@ class App
     end
   end
 
-  def create_student
+  def get_user_student_info
     print 'Has parent permission? [Y/N]: '
     permission = gets[0]
-    permission = (permission == ('Y' || 'y'))
-    @persons << Student.new('Unkown', @age, @name, permission)
+    @permission = (@permission == ('Y' || 'y'))
+  end
+
+  def create_student
+    get_user_student_info
+    @persons << Student.new('Unkown', @age, @name, @permission)
     puts "Person created successfully \n\n"
   end
 
-  def create_teacher
+  def get_user_teacher_info
     print 'Specialization: '
-    specialization = gets.chomp
-    @persons << Teacher.new(specialization, @age, @name)
+    @specialization = gets.chomp
+  end
+
+  def create_teacher
+    get_user_teacher_info
+    @persons << Teacher.new(@specialization, @age, @name)
     puts "Person created successfully\n\n"
   end
 
