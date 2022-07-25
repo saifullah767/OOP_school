@@ -24,29 +24,60 @@ class App
     puts ''
   end
 
-  def create_person # rubocop:disable Metrics/MethodLength
-    puts 'Which type of person you wish to create'
-    puts '1. Student'
-    puts '2. Teacher'
-    print 'Enter selection: '
-    person_type = gets.chomp.to_i
-    print 'Name: '
-    name = gets.chomp
-    print 'Age : '
-    age = gets.chomp.to_i
-    case person_type
-    when 1
-      print 'Has parent permission? [Y/N]: '
-      permission = gets[0]
-      permission = (permission == ('Y' || 'y'))
-      @persons << Student.new('Unkown', age, name, permission)
-      puts "Person created successfully \n\n"
-    when 2
-      print 'Specialization: '
-      specialization = gets.chomp
-      @persons << Teacher.new(specialization, age, name)
-      puts "Person created successfully\n\n"
+  def input_number(text, range)
+    loop do
+      print text
+      input = gets.chomp.to_i
+      return input if range.include?(input)
     end
+  end
+
+  def user_person_info
+    @student_or_teacher = input_number('Do you want to create a student (1) or a teacher (2)? [Input a number]: ',
+                                       (1..2))
+    print 'Name: '
+    @name = gets.chomp
+    print 'Age : '
+    @age = gets.chomp.to_i
+  end
+
+  def create_person
+    user_person_info
+    case @student_or_teacher
+    when 1
+      create_student
+    when 2
+      create_teacher
+    end
+  end
+
+  def input_letters(text, range)
+    loop do
+      print text
+      input = gets.chomp.upcase
+      return input if range.include?(input)
+    end
+  end
+
+  def user_student_info
+    @permission_input = input_letters('Has parent permission? [Y/N]: ', %w[Y N])
+  end
+
+  def create_student
+    user_student_info
+    @persons << Student.new('Unkown', @age, @name, @permission_input)
+    puts "Person created successfully \n\n"
+  end
+
+  def user_teacher_info
+    print 'Specialization: '
+    @specialization = gets.chomp
+  end
+
+  def create_teacher
+    user_teacher_info
+    @persons << Teacher.new(@specialization, @age, @name)
+    puts "Person created successfully\n\n"
   end
 
   def create_book
@@ -62,13 +93,15 @@ class App
   def create_rental
     puts 'Create rental'
     puts 'Select a book from the following list by number'
-    @books.each_with_index { |book, index| puts "#{index}) Title: \"#{book.title}\", Author: #{book.author}" }
-    book_number = gets.chomp.to_i
+    @books.each_with_index do |book, index|
+      puts "#{index}) Title: \"#{book.title}\", Author: #{book.author}"
+    end
+    book_number = input_number('Write a valid number ', (0...@books.length))
     puts 'Select a Person from the following list by number'
     @persons.each_with_index do |person, index|
       puts " #{index}) [#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
     end
-    person_number = gets.chomp.to_i
+    person_number = input_number('Write a valid number ', (0...@persons.length))
     print 'Date: '
     date = gets.chomp
     @rentals << Rental.new(date, @books[book_number], @persons[person_number])
