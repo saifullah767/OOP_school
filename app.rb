@@ -24,7 +24,7 @@ class App
     puts ''
   end
 
-  def create_person # rubocop:disable Metrics/MethodLength
+  def create_person
     puts 'Which type of person you wish to create'
     puts '1. Student'
     puts '2. Teacher'
@@ -41,7 +41,7 @@ class App
       create_teacher
     end
   end
-  
+
   def create_student
     print 'Has parent permission? [Y/N]: '
     permission = gets[0]
